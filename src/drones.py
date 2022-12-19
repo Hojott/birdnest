@@ -1,5 +1,7 @@
+#!/usr/bin/env python
 import requests
-from lxml import etree, objectify
+from lxml import objectify
+import math
 
 class DroneCoords:
     """ Includes drone serial-number and coordinates
@@ -18,7 +20,7 @@ def parse_drones(xml):
     pos_ys = []
     pos_xs = []
 
-    for appt, e, i in root.getchildren():
+    for appt in root.getchildren():
         for e in appt.getchildren():
             for i in e.getchildren():
                 if i.tag == "serialNumber":
@@ -44,5 +46,14 @@ def get_drones():
     obj_data = parse_drones(xml_no_dec)
     return obj_data
 
-if __name__ == "__main__":
-    print(get_drones())
+def bad_drones():
+    """ Returns list of drones that break NDZ
+    """
+    drones = get_drones()
+    bad_drones = []
+    for drone in drones:
+        distance = math.hypot(float(drone.pos_y) - 250000.0, float(drone.pos_x) - 250000.0)
+        print(distance)
+        if distance < 100000:
+            bad_drones.append(drone)
+    return bad_drones
