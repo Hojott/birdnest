@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang=en>
+
+<Title>NDZ Watchtower</Title>
+<body>
+    <h1>Monadikuikka No Drone Zone Watchtower</h1>
+    {% if breaches %}
+        <h3>Breaches:</h3>
+        <p></p>
+        {% for breach in breaches %}
+            <div>
+                <li>- Name: {{ breach.name }}</li>
+                <li>&nbsp&nbsp- Email: {{ breach.email }}</li>
+                <li>&nbsp&nbsp- Phone: {{ breach.phone }}</li>
+                <li></li>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No breaches</p>
+    {% endif %}
+</bodt>
+
+</html>
