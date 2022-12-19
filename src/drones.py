@@ -46,14 +46,13 @@ def get_drones():
     obj_data = parse_drones(xml_no_dec)
     return obj_data
 
-def bad_drones():
+def breaching_drones():
     """ Returns list of drones that break NDZ
     """
     drones = get_drones()
     bad_drones = []
     for drone in drones:
         distance = math.hypot(float(drone.pos_y) - 250000.0, float(drone.pos_x) - 250000.0)
-        print(distance)
         if distance < 100000:
             bad_drones.append(drone)
     return bad_drones
