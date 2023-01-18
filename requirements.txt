@@ -1,3 +1,4 @@
 requests==2.28.1
 lxml==4.9.2
 flask==2.2.2
+apsw==3.40.1.0

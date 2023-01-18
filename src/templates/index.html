@@ -2,7 +2,7 @@
 <html lang=en>
 
 <Title>NDZ Watchtower</Title>
-<meta http-equiv="refresh" content="1">
+<meta http-equiv="refresh" content="2">
 <body>
     <h1>Monadikuikka No Drone Zone Watchtower</h1>
     {% if breaches %}
@@ -13,6 +13,7 @@
                 <li> - Name: {{ breach.name }}</li>
                 <li>&nbsp&nbsp - Email: {{ breach.email }}</li>
                 <li>&nbsp&nbsp - Phone: {{ breach.phone }}</li>
+                <li>&nbsp&nbsp - Closest distance: {{ breach.distance }}m</li>
                 <li></li>
             </div>
         {% endfor %}

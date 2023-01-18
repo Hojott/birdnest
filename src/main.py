@@ -2,7 +2,7 @@
 #
 # main.py is used as a command line tool.
 # The website uses wsgi.py, and should be
-# run with ´flask run´ in src/
+# run with `python src/wsgi.py`
 #
 
 from drones import breaching_drones
@@ -12,8 +12,7 @@ def cmd_tool():
     """ Command line tool for displaying breaches
     """
 
-    bad_drones = breaching_drones()
-    pilot_contacts = get_contacts(bad_drones)
+    pilot_contacts = get_contacts()
 
     print("Pilots in breach of NDZ:")
     if len(pilot_contacts) == 0:

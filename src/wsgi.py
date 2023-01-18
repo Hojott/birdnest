@@ -1,26 +1,15 @@
 #!/usr/bin/env python
-from flask import Flask, render_template    
+from threading import Thread
 
-from drones import breaching_drones
-from pilots import get_contacts
+from app import flask_app
+from db import control_database
 
-app = Flask(__name__)
+def main():
+    flask = Thread(target=flask_app, name="flask")
+    flask.start()
 
-@app.route("/")
-def wip():
-    """ WIP Webpage
-    """
+    database = Thread(target=control_database, name="database")
+    database.start()
 
-    return render_template("wip.html")
-
-@app.route("/birdnest", methods=['GET', 'POST'])
-def webpage():
-    """ Webpage that has contact info of pilots in breach
-    """
-
-    bad_drones = breaching_drones()
-    breaches = get_contacts(bad_drones)
-
-    return render_template("index.html", breaches=breaches)
-
-app.run(host="0.0.0.0")
+if __name__ == "__main__":
+    main()

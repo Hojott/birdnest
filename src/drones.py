@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import requests
 from lxml import objectify
 import math
@@ -47,12 +46,13 @@ def get_drones():
     return obj_data
 
 def breaching_drones():
-    """ Returns list of drones that break NDZ
+    """ Returns list of drones that break NDZ and their distance
     """
     drones = get_drones()
     bad_drones = []
     for drone in drones:
         distance = math.hypot(float(drone.pos_y) - 250000.0, float(drone.pos_x) - 250000.0)
-        if distance < 100000:
-            bad_drones.append(drone)
+        distance = math.floor(distance/1000)
+        if distance < 100:
+            bad_drones.append([drone, distance])
     return bad_drones
