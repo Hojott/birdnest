@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  birdnest:
+    image: ghcr.io/hojott/birdnest:latest-snapshot
+    build: .
+    volumes:
+      - /app/src/databases:/app/src/databases
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.birdnest.rule=Host("kussi.fi")
+      - traefik.http.services.birdnest.loadbalancer.server.port=5000
+      - traefik.http.routers.birdnest.entrypoints=websecure
+      - traefik.http.routers.birdnest.tls.certresolver=myresolver
+      - com.centurylinklabs.watchtower.enable=true
+      
+
+  traefik:
+    image: traefik:v2.9
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=sakkenino@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
