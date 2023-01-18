@@ -6,6 +6,13 @@ from pilots import get_contacts
 
 app = Flask(__name__)
 
+@app.route("/")
+def wip():
+    """ WIP Webpage
+    """
+
+    return render_template("wip.html")
+
 @app.route("/birdnest", methods=['GET', 'POST'])
 def webpage():
     """ Webpage that has contact info of pilots in breach
