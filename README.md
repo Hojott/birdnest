@@ -1,5 +1,5 @@
 # Birdnest
-Reaktor pre-assignment for tracking drone violations. Made without Python and HTML.
+Simple webpage for tracking drone violations. Made entirely with Python and HTML.
 
 Runs on https://kussi.fi/birdnest, but you can start a dev server with:
 - pip install -r requirements.txt
